@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Support\Facades\Broadcast;
-
 /*
 |--------------------------------------------------------------------------
 | Broadcast Channels
@@ -13,10 +11,22 @@ use Illuminate\Support\Facades\Broadcast;
 |
 */
 
-Broadcast::channel('App.User.{id}', function ($user, $id) {
-    return (int) $user->id === (int) $id;
-});
+// Broadcast::channel('App.User.{id}', function ($user, $id) {
+//     return (int) $user->id === (int) $id;
+// });
 
 Broadcast::channel('lchat', function ($user) {
-  return auth()->check();
+    return auth()->check();
+});
+
+Broadcast::channel('privatechat.{receiverid}', function ($user,$receiverid) {
+
+    return auth()->check();
+});
+
+Broadcast::channel('plchat', function ($user) {
+
+    if(auth()->check()){
+        return $user;
+    }
 });

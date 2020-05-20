@@ -9,11 +9,11 @@ require('./bootstrap');
 window.Vue = require('vue');
 
 
-import Vuetify from 'vuetify'
+import Vuetify from 'vuetify';
 
-Vue.use(Vuetify)
+Vue.use(Vuetify);
 
-import 'vuetify/dist/vuetify.min.css'
+import 'vuetify/dist/vuetify.min.css';
 
 /**
  * The following block of code may be used to automatically register your
@@ -27,7 +27,8 @@ import 'vuetify/dist/vuetify.min.css'
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
-// Vue.component('Chat', require('./components/Chat.vue'));
+Vue.component('Chat', require('./components/Chat.vue').default);
+Vue.component('PrivateChat', require('./components/PrivateChat.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -37,4 +38,5 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 
 const app = new Vue({
     el: '#app',
+    vuetify: new Vuetify(),
 });

@@ -20,7 +20,7 @@
               <img :src="item.avatar">
             </v-list-tile-avatar> -->
           </v-list-tile>
-          <!-- Aca va el typing-->
+
 
         </v-list>
 
@@ -90,6 +90,8 @@
 <script>
   import MessageList from './_message-list'
   import { Picker } from 'emoji-mart-vue'
+
+
   export default {
     props:['user'],
     components:{
@@ -109,8 +111,10 @@
         emoStatus:false,
         users:[],
         token:document.head.querySelector('meta[name="csrf-token"]').content
+
       }
     },
+
     computed:{
       friends(){
         return this.users.filter((user)=>{
@@ -118,6 +122,7 @@
         })
       }
     },
+
     watch:{
       files:{
         deep:true,
@@ -135,13 +140,16 @@
         console.log(val);
       }
     },
+
     methods:{
       onTyping(){
         Echo.private('privatechat.'+this.activeFriend).whisper('typing',{
           user:this.user
+
         });
       },
       sendMessage(){
+
         //check if there message
         if(!this.message){
           return alert('Please enter message');
@@ -149,6 +157,7 @@
         if(!this.activeFriend){
           return alert('Please select friend');
         }
+
           axios.post('/private-messages/'+this.activeFriend, {message: this.message}).then(response => {
                     this.message=null;
                     this.allMessages.push(response.data.message)
@@ -162,6 +171,7 @@
             axios.get('/private-messages/'+this.activeFriend).then(response => {
                 this.allMessages = response.data;
               setTimeout(this.scrollToEnd,100);
+
             });
         },
       fetchUsers() {
@@ -172,6 +182,8 @@
                 }
             });
         },
+
+
       scrollToEnd(){
         document.getElementById('privateMessageBox').scrollTo(0,99999);
       },
@@ -189,15 +201,20 @@
         }
         this.emoStatus=false;
       },
+
       onResponse(e){
         console.log('onrespnse file up',e);
       }
 
+
     },
+
     mounted(){
     },
+
     created(){
               this.fetchUsers();
+
               Echo.join('plchat')
               .here((users) => {
                    console.log('online',users);
@@ -218,26 +235,35 @@
                   this.activeFriend=e.message.user_id;
                   this.allMessages.push(e.message)
                   setTimeout(this.scrollToEnd,100);
+
               })
               .listenForWhisper('typing', (e) => {
+
                   if(e.user.id==this.activeFriend){
+
                       this.typingFriend=e.user;
 
                     if(this.typingClock) clearTimeout();
+
                       this.typingClock=setTimeout(()=>{
                                             this.typingFriend={};
                                         },9000);
                   }
 
+
+
             });
+
     }
 
   }
 </script>
 
 <style scoped>
+
 .online-users,.messages{
   overflow-y:scroll;
   height:100vh;
 }
+
 </style>

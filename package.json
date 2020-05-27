@@ -28,9 +28,10 @@
     "dependencies": {
         "@popperjs/core": "^2.4.0",
         "babel-loader": "^8.1.0",
-        "emoji-mart-vue": "^2.6.6",
+        "emoji-mart-vue": "^2.6.4",
         "laravel-echo": "^1.8.0",
         "pusher-js": "^6.0.3",
+        "vue-upload-component": "^2.8.15",
         "vuetify": "^2.2.29"
     }
 }

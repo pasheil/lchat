@@ -19,10 +19,6 @@
                       {{message.message}}
 
                   </v-chip>
-                  <v-chip color="red" text-color="white">
-                      {{message.message}}
-
-                  </v-chip>
 
               </div>
 
@@ -45,6 +41,7 @@
 <script>
   export default {
     props:['user','allMessages'],
+
   }
 </script>
 
@@ -59,4 +56,5 @@
     max-width: 300px;
     max-height: 200px;
 }
+
 </style>

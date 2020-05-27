@@ -34,14 +34,14 @@
           </v-flex>
 
           <v-flex xs1 class="text-center">
-             <!-- <file-upload
+             <file-upload
              post-action="/messages"
              ref='upload'
              @input-file="$refs.upload.active = true"
              :headers="{'X-CSRF-TOKEN': token}"
              >
                  <v-icon class="mt-3">attach_file</v-icon>
-             </file-upload> -->
+             </file-upload>
 
         </v-flex>
         <v-flex xs6 >
@@ -88,12 +88,15 @@
         token:document.head.querySelector('meta[name="csrf-token"]').content
       }
     },
+
     methods:{
       sendMessage(){
+
         //check if there message
         if(!this.message){
           return alert('Please enter message');
         }
+
           axios.post('/messages', {message: this.message}).then(response => {
                     this.message=null;
                     this.emoStatus=false;
@@ -104,8 +107,10 @@
       fetchMessages() {
             axios.get('/messages').then(response => {
                 this.allMessages = response.data;
+
             });
         },
+
       scrollToEnd(){
         window.scrollTo(0,99999);
       },
@@ -122,16 +127,22 @@
       toggleEmo(){
             this.emoStatus= !this.emoStatus;
       }
+
     },
+
     mounted(){
     },
+
     created(){
       this.fetchMessages();
+
       Echo.private('lchat')
       .listen('MessageSent',(e)=>{
           this.allMessages.push(e.message)
           setTimeout(this.scrollToEnd,100);
+
       });
+
     }
 
   }
@@ -148,4 +159,5 @@
     max-width: 300px;
     max-height: 200px;
 }
+
 </style>
